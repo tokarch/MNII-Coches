@@ -9,7 +9,7 @@ Curso  : Métodos Numéricos II
 Las funciones de interpolación (Polinomio_Lagrange, Polinomio_Interpolacion,
 Interpolacion_Newton, SplineNatural) y las de Transformada Rápida de Fourier
 (TransformadaFourierRapida, SubirNivel, TransformacionIntervalo, ValoresFFT)
-son los códigos oficiales de la asignatura.
+son los códigos de la asignatura.
 =============================================================================
 """
 
@@ -23,9 +23,7 @@ import matplotlib.gridspec as gridspec
 
 sp.init_printing()
 
-# ---------------------------------------------------------------------------
 # 0. CONFIGURACIÓN GLOBAL DE MATPLOTLIB
-# ---------------------------------------------------------------------------
 plt.rcParams.update({
     "font.family": "serif",
     "font.size": 11,
@@ -36,9 +34,7 @@ plt.rcParams.update({
     "lines.linewidth": 1.8,
 })
 
-# ---------------------------------------------------------------------------
 # 1. DATOS EXPERIMENTALES
-# ---------------------------------------------------------------------------
 v_datos = [30.0, 50.0, 70.0, 90.0, 110.0, 130.0]      # km/h
 C_datos = [8.5, 6.2, 5.5, 5.8, 6.5, 7.6]              # L / 100 km
 DEPOSITO = 50.0                                        # L
@@ -59,9 +55,8 @@ for v, c, a in zip(v_datos, C_datos, A_datos):
     print(f"{v:>10.1f} {c:>14.2f} {a:>16.1f}")
 print()
 
-# ===========================================================================
-# 2. CÓDIGOS OFICIALES DE CLASE — INTERPOLACIÓN DE LAGRANGE
-# ===========================================================================
+# 2. INTERPOLACIÓN DE LAGRANGE
+
 def Polinomio_Lagrange(k, nodos_originales, expanded=True):
     """
     Dados n+1 nodos x_i, i=0,1,...,n y un indice k,
@@ -107,9 +102,7 @@ def Polinomio_Interpolacion(nodos, f=consumo):
     return sp.expand(Lpoli)
 
 
-# ===========================================================================
-# 3. CÓDIGOS OFICIALES DE CLASE — INTERPOLACIÓN DE NEWTON
-# ===========================================================================
+# 3. INTERPOLACIÓN DE NEWTON
 def Interpolacion_Newton(nodos, f=consumo):
     """
     Dados n+1 nodos x_i, i=0,1,...,n y una función f, devuelve el polinomio
@@ -134,9 +127,8 @@ def Interpolacion_Newton(nodos, f=consumo):
     return pol, Q
 
 
-# ===========================================================================
-# 4. CÓDIGOS OFICIALES DE CLASE — SPLINE CÚBICO NATURAL
-# ===========================================================================
+# 4. SPLINE CÚBICO NATURAL
+
 def SplineNatural(nodos, f=consumo, verbose=True):
     """
     Dados n+1 puntos en el eje de las x indexados y una función f,
@@ -194,9 +186,8 @@ def SplineNatural(nodos, f=consumo, verbose=True):
     return polsplines, a, b, c, d
 
 
-# ===========================================================================
-# 5. CÓDIGOS OFICIALES DE CLASE — TRANSFORMADA RÁPIDA DE FOURIER
-# ===========================================================================
+# 5. TRANSFORMADA RÁPIDA DE FOURIER
+
 def SubirNivel(y, j, c):
     """
     Subrutina del algoritmo FFT: combina coeficientes de nivel inferior.
@@ -291,9 +282,8 @@ def ValoresFFT(a, b, x, n):
     return aprox
 
 
-# ===========================================================================
 # 6. UTILIDADES NUMÉRICAS
-# ===========================================================================
+
 def lambdify_pol(pol):
     """Convierte una expresión simbólica en una función NumPy-callable."""
     x = sp.symbols('x')
@@ -318,9 +308,9 @@ def nodos_chebyshev(a, b, n):
     return np.sort((b - a) / 2.0 * t_k + (a + b) / 2.0)
 
 
-# ===========================================================================
 # 7. APLICACIÓN A LOS DATOS DE CONSUMO
-# ===========================================================================
+
+
 v_fino = np.linspace(30.0, 130.0, 500)
 
 # ---- Lagrange ----
@@ -460,9 +450,7 @@ print()
 # Reconstrucción para visualizar
 C_fft_reconstruido = ValoresFFT(a_fft, b_fft, x_fft, m_fft)
 
-# ===========================================================================
 # 8. FIGURAS
-# ===========================================================================
 v_arr = np.array(v_datos)
 C_arr = np.array(C_datos)
 A_arr = np.array(A_datos)
